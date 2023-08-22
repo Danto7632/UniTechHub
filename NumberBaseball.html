@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <title>숫자 야구 게임</title>
+  </head>
+
+  </form>
+  <style>
+    form {
+      margin-left: 600px;
+    }
+    div {
+      margin-left: 600px;
+    }
+  </style>
+
+  <body bgcolor="#d4f6b7">
+    <h2 align="center" style="color: seagreen; font-size: 70px">
+      숫자 야구 게임
+    </h2>
+    <p>
+      <marquee behavior="scrol">
+        중복되지 않는 네 자리 수를 입력하세요
+      </marquee>
+    </p>
+    <p>
+      <marquee behavior="scrol">
+        자리와 수를 맞히면 스트라이크, 수만 맞히면 볼로 표시됩니다. 숫자를 모두
+        맞히면 홈런!
+      </marquee>
+    </p>
+    <p>
+      <marquee bgColor="lightblue" style="color: rgb(11, 6, 90)">
+        기회는 총 10번 주어집니다!
+      </marquee>
+    </p>
+    <form action="reset">
+      <input
+        type="button"
+        value="reset"
+        style="
+          color: seagreen;
+          background-color: rgb(218, 250, 222);
+          border-color: rgb(80, 116, 95);
+        "
+        onclick="window.location.reload();alert('게임이 리셋됩니다!')"
+      />
+      <form action="hint">
+        <input
+          type="button"
+          value="hint"
+          style="
+            color: seagreen;
+            background-color: rgb(218, 250, 222);
+            border-color: rgb(80, 116, 95);
+          "
+          onclick="alert(`${hintNumbers} 이 숫자중에 네개가 정답입니다.`)"
+        />
+      </form>
+    <script>
+      // 1. 화면구성
+
+      // 전송 폼
+      let form = document.createElement("form");
+      document.body.append(form);
+      // 입력창
+      let input = document.createElement("input");
+      input.maxLength = 4;
+      input.minLength = 4;
+      form.append(input);
+      // 입력 버튼
+      let btn = document.createElement("button");
+      btn.textContent = "입력";
+      btn.style.color = "Seagreen";
+      // 입력버튼도 통일해서 바꿔주고싶은데 바꾸는 법을 모름.....
+      // btn.style.background.color = "rgb(218, 250, 222)";
+      // btn.style.border.color = "rgb(80, 116, 95)";
+
+      form.append(btn);
+      // 리셋 버튼
+
+      // 결과조회
+      let result = document.createElement("div");
+      document.body.append(result);
+
+      // 2.숫자뽑기 함수 선언부
+      // 이하 코드 작성
+      let numberList;
+      let answerArray;
+      let hint; 
+      let hintNumbers;
+
+      function makeAnswer() {
+        numberList = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
+        answerArray = [];
+        for (let i = 0; i < 4; i++) {
+          let picked = [];
+          picked = numberList.splice(
+            Math.floor(Math.random() * (10 - i)),
+            1
+          )[0];
+          answerArray.push(picked);
+        }
+      }
+      makeAnswer();
+      console.log(answerArray);
+      
+
+      function showFinalResult() {
+        result.textContent = "🎉홈런!!🥳🎉";
+      }
+      function failResult() {
+        result.textContent = ` 횟수 초과! 정답은 ${answerArray}입니다.`;
+      }
+      //힌트 함수 만들기
+      let clueNum = numberList;
+       hint = []
+      for (let i = 0; i < 1; i++) {
+        let clue = [];
+        clue = clueNum.splice(
+          Math.floor(Math.random() * (6 - i)),
+          1
+        )[0];
+        hint.push(clue);
+      }
+      console.log(hint)
+
+      hintNumbers = hint.concat(answerArray)
+      hintNumbers.sort()
+      console.log(hintNumbers)
+      hintNumbers.reverse()
+    
+
+      let nGuesses = 0;
+
+      // 3.참여자가 입력한 숫자 전송부
+      form.addEventListener("submit", function (e) {
+        e.preventDefault();
+
+        let answer = input.value;
+        
+        //중복검사용 함수
+        let tries = [];
+        function checkInput(input) {
+          for (i = 0; i <= 3; i++) if(answer[i] === answer[i + 1]) {
+            alert("중복된 숫자 입니다!");
+          } else if(answer[i] === answer[i + 2]) {
+            alert("중복된 숫자 입니다!");
+          } else if(answer[i] === answer[i + 3]) {
+            alert("중복된 숫자 입니다!");
+          }
+        }
+         checkInput()
+        if (input.value === answerArray.join("")) {
+          showFinalResult();
+          input.value = "";
+          input.focus();
+          makeAnswer();
+          console.log(answerArray);
+          nGuesses = 0;
+        } else {
+          // 틀리면 스트라이크 홈런
+          let attemptArray = answer.split("");
+          let nBalls = 0;
+          let nStrikes = 0;
+          nGuesses++;
+
+
+          if (nGuesses >= 10) {
+            failResult();
+            input.value = "";
+            input.focus();
+            // 다음문제
+            makeAnswer();
+            console.log("다음문제" + answerArray);
+            nGuesses = 0;
+          } else {
+            for (let i = 0; i < 4; i++) {
+              if (Number(attemptArray[i]) === answerArray[i]) {
+                // 같은 자리면 스트라잌
+                nStrikes++;
+              } else if (answerArray.indexOf(Number(attemptArray[i])) > -1) {
+                nBalls++;
+              }
+            }
+            result.textContent = `${nStrikes} 스트라이크, ${nBalls} 볼 입니다.
+                    ${10 - nGuesses} 회 남았습니다!`;
+            input.value = "";
+            input.focus();
+          }
+        }
+      });
+    </script>
+  </body>
+</html>
