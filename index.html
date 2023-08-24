@@ -2,65 +2,22 @@
 <html>
 <head>
   <link rel="stylesheet" type="text/css" href="styles.css">
-  <style>
-    body {
-        font-family: Arial, sans-serif;
-        margin: 0;
-        padding: 0;
-    }
-
-    .app-container {
-        background-color: #4CAF50; /* 초록색 배경 */
-        color: white;
-    }
-
-    /* 헤더 스타일 */
-    header {
-        padding: 20px;
-        text-align: center;
-    }
-
-    nav ul {
-        list-style-type: none;
-        padding: 0;
-    }
-
-    nav ul li {
-        display: inline;
-        margin-right: 15px;
-    }
-
-    nav ul li a {
-        text-decoration: none;
-        color: white;
-    }
-
-    /* 메인 콘텐츠 스타일 */
-    .main-content {
-        padding: 20px;
-    }
-
-    article {
-        background-color: white;
-        padding: 15px;
-        border-radius: 5px;
-        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    }
-
-    /* 푸터 스타일 */
-    footer {
-        background-color: #4CAF50;
-        color: white;
-        text-align: center;
-        padding: 10px;
-    }
-  </style>
 </head>
 <body>
   <div class="app-container">
     <header>
+      <div class="menu-icon" onclick="toggleMenu()">
+        <div class="bar"></div>
+        <div class="bar"></div>
+        <div class="bar"></div>
+      </div>
       <h1>Green Blog</h1>
-      <nav>
+    </header>
+  
+    <nav id="menu" class="hidden">
+        <div class="menu-header">
+            <span class="back-icon" onclick="toggleMenu()">&larr; Back</span>
+        </div>
         <ul>
             <li><a href="front/Gugudan.html">1</a></li>
             <li><a href="front/like-button.html">2</a></li>
@@ -71,10 +28,9 @@
             <li><a href=""></a></li>
             <li><a href=""></a></li>
             <li><a href=""></a></li>
-          </ul>
-      </nav>
-    </header>
-  
+      </ul>
+    </nav>
+    
     <section class="main-content">
       <article>
         <h2>Sample Blog Post</h2>
@@ -86,5 +42,6 @@
       <p>&copy; 2023 Green Blog. All rights reserved.</p>
     </footer>
   </div>
+  <script src="script.js"></script>
 </body>
 </html>
