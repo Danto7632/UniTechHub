@@ -15,6 +15,17 @@
             font-family: Arial, sans-serif;
         }
 
+        #container {
+            border: 2px solid #ccc;
+            padding: 20px;
+            border-radius: 8px;
+            background-color: white;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
         #screen {
             width: 300px;
             height: 200px;
@@ -25,10 +36,10 @@
             border: 1px solid #ccc;
             background-color: #e0e0e0;
             cursor: pointer;
+            transition: background-color 0.3s, color 0.3s;
         }
 
         #screen.waiting {
-            background-color: #e0e0e0;
             color: black;
         }
 
@@ -50,8 +61,11 @@
     </style>
 </head>
 <body>
-    <div id="screen" class="waiting" onclick="onClickScreen()">클릭해서 시작하세요.</div>
-    <div id="result"></div> <!-- 초기에는 시간이 출력되지 않음 -->
+    <div id="container">
+        <h2>반응속도 테스트</h2>
+        <div id="screen" class="waiting" onclick="onClickScreen()">클릭해서 시작하세요.</div>
+        <div id="result"></div>
+    </div>
 
     <script>
         let startTime = 0;
