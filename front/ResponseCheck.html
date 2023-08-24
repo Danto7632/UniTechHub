@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Click Game</title>
+    <style>
+        #screen {
+            width: 300px;
+            height: 200px;
+            text-align: center;
+            user-select: none;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 18px;
+            border: 2px solid black;
+            cursor: pointer;
+        }
+
+        #screen.waiting {
+            background-color: aqua;
+        }
+
+        #screen.ready {
+            background-color: red;
+            color: white;
+        }
+
+        #screen.now {
+            background-color: greenyellow;
+        }
+
+        #result {
+            text-align: center;
+            font-size: 18px;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div id="screen" class="waiting" onclick="onClickScreen()">클릭해서 시작하세요.</div>
+    <div id="result" style="display: none;"></div>
+
+    <script>
+        let startTime = 0;
+        let endTime = 0;
+        let timeout = null;
+
+        function onClickScreen() {
+            const screen = document.querySelector('#screen');
+            const result = document.querySelector('#result');
+
+            if (screen.classList.contains('waiting')) {
+                screen.classList.remove('waiting');
+                screen.classList.add('ready');
+                screen.textContent = '초록색이 되면 클릭하세요.';
+                timeout = setTimeout(function () {
+                    screen.classList.remove('ready');
+                    screen.classList.add('now');
+                    screen.textContent = '지금 클릭!';
+                    startTime = new Date();
+                }, Math.floor(Math.random() * 1000) + 2000); // 2~3초
+            } else if (screen.classList.contains('ready')) {
+                clearTimeout(timeout);
+                screen.classList.remove('ready');
+                screen.classList.add('waiting');
+                screen.textContent = '너무 성급하시군요! 초록색이 된 후에 클릭하세요.';
+            } else if (screen.classList.contains('now')) {
+                endTime = new Date();
+                screen.classList.remove('now');
+                screen.classList.add('waiting');
+                screen.textContent = '클릭해서 시작하세요.';
+                const resultTime = endTime - startTime;
+                result.textContent = '평균 시간: ' + resultTime + 'ms';
+            }
+        }
+
+        // Reset Button
+        const resetButton = document.querySelector('#reset');
+        resetButton.addEventListener('click', function () {
+            document.querySelector('#result').textContent = '';
+        });
+    </script>
+</body>
+</html>
