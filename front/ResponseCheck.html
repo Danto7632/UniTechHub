@@ -4,42 +4,54 @@
     <meta charset="UTF-8">
     <title>Click Game</title>
     <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            margin: 0;
+            background-color: #f0f0f0;
+            font-family: Arial, sans-serif;
+        }
+
         #screen {
             width: 300px;
             height: 200px;
-            text-align: center;
-            user-select: none;
             display: flex;
             justify-content: center;
             align-items: center;
             font-size: 18px;
-            border: 2px solid black;
+            border: 1px solid #ccc;
+            background-color: #e0e0e0;
             cursor: pointer;
         }
 
         #screen.waiting {
-            background-color: aqua;
+            background-color: #e0e0e0;
+            color: black;
         }
 
         #screen.ready {
-            background-color: red;
+            background-color: #ff7272;
             color: white;
         }
 
         #screen.now {
-            background-color: greenyellow;
+            background-color: #72ff72;
         }
 
         #result {
             text-align: center;
             font-size: 18px;
             margin-top: 20px;
+            display: none;
         }
     </style>
 </head>
 <body>
     <div id="screen" class="waiting" onclick="onClickScreen()">클릭해서 시작하세요.</div>
-    <div id="result" style="display: none;"></div>
+    <div id="result"></div> <!-- 초기에는 시간이 출력되지 않음 -->
 
     <script>
         let startTime = 0;
@@ -72,14 +84,9 @@
                 screen.textContent = '클릭해서 시작하세요.';
                 const resultTime = endTime - startTime;
                 result.textContent = '평균 시간: ' + resultTime + 'ms';
+                result.style.display = 'block'; // 시간이 출력되도록 보이게 설정
             }
         }
-
-        // Reset Button
-        const resetButton = document.querySelector('#reset');
-        resetButton.addEventListener('click', function () {
-            document.querySelector('#result').textContent = '';
-        });
     </script>
 </body>
 </html>
