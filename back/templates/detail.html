@@ -1,24 +1,24 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
-
+<html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>detail</title>
+    <title>Detail</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-<table>
-  <tr>
-    <th>id</th>
-    <th>email</th>
-    <th>password</th>
-    <th>name</th>
-  </tr>
-  <tr>
-    <td th:text="${member.id}"></td>
-    <td th:text="${member.memberEmail}"></td>
-    <td th:text="${member.memberPassword}"></td>
-    <td th:text="${member.memberName}"></td>
-  </tr>
-</table>
+    <table>
+        <tr>
+            <th>id</th>
+            <th>email</th>
+            <th>password</th>
+            <th>name</th>
+        </tr>
+        <tr>
+            <td>1</td>
+            <td>test@example.com</td>
+            <td>password123</td>
+            <td>John Doe</td>
+        </tr>
+    </table>
 </body>
 </html>

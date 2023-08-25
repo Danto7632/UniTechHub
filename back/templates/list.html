@@ -1,34 +1,29 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Title</title>
+    <meta charset="UTF-8">
+    <title>List</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-<h2>list.html</h2>
-<table>
-  <tr>
-    <th>id</th>
-    <th>memberEmail</th>
-    <th>memberPassword</th>
-    <th>memberName</th>
-    <th>상세조회</th>
-    <th>삭제</th>
-  </tr>
-  <tr th:each="member: ${memberList}">
-    <td th:text="${member.id}"></td>
-    <td th:text="${member.memberEmail}"></td>
-    <td th:text="${member.memberPassword}"></td>
-    <td th:text="${member.memberName}"></td>
-    <td>
-      <!-- query string /member?id=1
-          rest api /member/1 -->
-      <a th:href="@{|/member/${member.id}|}">조회</a>
-    </td>
-    <td>
-      <a th:href="@{|/member/delete/${member.id}|}">삭제</a>
-    </td>
-  </tr>
-</table>
+    <table>
+        <tr>
+            <th>id</th>
+            <th>memberEmail</th>
+            <th>memberPassword</th>
+            <th>memberName</th>
+            <th>상세조회</th>
+            <th>삭제</th>
+        </tr>
+        <tr>
+            <td>1</td>
+            <td>test@example.com</td>
+            <td>password123</td>
+            <td>John Doe</td>
+            <td><a href="detail.html">조회</a></td>
+            <td><a href="#">삭제</a></td>
+        </tr>
+        <!-- Repeat similar rows for other members -->
+    </table>
 </body>
 </html>

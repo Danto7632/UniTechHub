@@ -2,29 +2,24 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>index</title>
+    <title>Main Page</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <button onclick="saveReq()">글작성</button>
-    <a href="/board/save">글작성(링크)</a>
-    <button onclick="listReq()">글목록</button>
-    <button onclick="pagingReq()">페이징목록</button>
+    <button onclick="goToSavePage()">글작성</button>
+    <a href="save.html">글작성(링크)</a>
+    <button onclick="goToListPage()">글목록</button>
+    <button onclick="goToPagingPage()">페이징목록</button>
 </body>
 <script>
-//  function saveReq() {
-//
-//  }
-
-  const saveReq = () => {
-    location.href = "/board/save";
-  }
-  const listReq = () => {
-    location.href = "/board/";
-  }
-  const pagingReq = () => {
-    location.href = "/board/paging";
-  }
-
-
+    function goToSavePage() {
+        location.href = "save.html";
+    }
+    function goToListPage() {
+        location.href = "list.html";
+    }
+    function goToPagingPage() {
+        location.href = "paging.html";
+    }
 </script>
 </html>
