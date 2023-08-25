@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Lotto Generator</title>
+    <style>
+        .ball {
+            display: inline-block;
+            border: 1px solid black;
+            border-radius: 20px;
+            width: 40px;
+            height: 40px;
+            line-height: 40px;
+            font-size: 20px;
+            text-align: center;
+            margin-right: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div>
+        <div>당첨 숫자</div>
+        <div id="결과창">
+        </div>
+        <div>보너스</div>
+        <div class="ball">8</div>
+        <button id="redo">한 번 더!</button>
+    </div>
+    <script>
+        const 결과창 = document.getElementById('결과창');
+        const btnRedo = document.getElementById('redo');
+        
+        function getWinNumbers() {
+            const candidate = Array(45).fill().map((v, i) => i + 1);
+            const shuffle = [];
+            while (candidate.length > 0) {
+                shuffle.push(candidate.splice(Math.floor(Math.random() * candidate.length), 1)[0]);
+            }
+            const bonusNumber = shuffle[shuffle.length - 1];
+            const winNumbers = shuffle.slice(0, 6).sort((p, c) => p - c);
+            return [...winNumbers, bonusNumber];
+        }
+
+        function showBalls() {
+            const winNumbers = getWinNumbers();
+            결과창.innerHTML = '';
+            for (let i = 0; i < winNumbers.length; i++) {
+                const ballDiv = document.createElement('div');
+                ballDiv.className = 'ball';
+                if (winNumbers[i] <= 10) {
+                    ballDiv.style.background = 'red';
+                } else if (winNumbers[i] <= 20) {
+                    ballDiv.style.background = 'orange';
+                } else if (winNumbers[i] <= 30) {
+                    ballDiv.style.background = 'yellow';
+                } else if (winNumbers[i] <= 40) {
+                    ballDiv.style.background = 'blue';
+                } else {
+                    ballDiv.style.background = 'green';
+                }
+                ballDiv.textContent = winNumbers[i];
+                결과창.appendChild(ballDiv);
+            }
+        }
+
+        btnRedo.addEventListener('click', () => {
+            showBalls();
+        });
+
+        // 페이지 로드 시 초기 보너스 번호와 결과창을 표시합니다.
+        showBalls();
+    </script>
+</body>
+</html>
