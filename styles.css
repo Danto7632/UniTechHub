@@ -145,6 +145,11 @@ body {
     padding: 20px;
   }
   
+  section {
+    width: 900px;
+    height: 1550px;
+  }
+
   article {
     background-color: white;
     padding: 15px;
@@ -159,4 +164,5 @@ body {
     text-align: center;
     padding: 10px;
   }
+  
   
